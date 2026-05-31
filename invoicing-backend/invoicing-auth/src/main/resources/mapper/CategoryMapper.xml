@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.invoicing.auth.mapper.CategoryMapper">
+
+    <sql id="categoryColumns">
+        id, tenant_id as tenantId, category_code as code, category_name as name,
+        parent_id as parentId, level, sort_order as sortOrder, status, remark,
+        creator, create_time as createTime, updater, update_time as updateTime, deleted
+    </sql>
+
+    <select id="selectCategoryPage" resultType="com.invoicing.auth.entity.Category">
+        SELECT <include refid="categoryColumns"/>
+        FROM product_category
+        WHERE deleted = 0
+        <if test="keyword != null and keyword != ''">
+            AND (category_code LIKE CONCAT('%', #{keyword}, '%')
+                 OR category_name LIKE CONCAT('%', #{keyword}, '%'))
+        </if>
+        ORDER BY level ASC, sort_order ASC
+    </select>
+
+    <select id="selectAllCategories" resultType="com.invoicing.auth.entity.Category">
+        SELECT <include refid="categoryColumns"/>
+        FROM product_category
+        WHERE deleted = 0 AND status = 1
+        ORDER BY level ASC, sort_order ASC
+    </select>
+
+</mapper>

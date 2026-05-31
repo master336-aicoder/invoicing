@@ -1,0 +1,16 @@
+# 商品服务配置 - product-service.yml
+# 命名空间：ai-dev
+# Group：dev
+# Data ID：product-service.yml
+
+server:
+  port: 8082
+
+spring:
+  datasource:
+    url: jdbc:mysql://192.168.1.6:13306/invoicing_product?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false
+
+# 日志配置
+logging:
+  level:
+    com.invoicing.product: DEBUG

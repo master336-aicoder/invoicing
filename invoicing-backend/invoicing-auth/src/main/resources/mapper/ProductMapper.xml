@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.invoicing.auth.mapper.ProductMapper">
+
+    <sql id="productColumns">
+        id, tenant_id as tenantId, product_code as code, product_name as name,
+        product_type as type, category_id as categoryId, unit_id as unitId,
+        min_order_qty as minOrderQty, safety_stock as safetyStock, max_stock as maxStock,
+        cost_price as costPrice, sale_price as salePrice, tax_rate as taxRate,
+        weight, volume, status, remark, creator, create_time as createTime,
+        updater, update_time as updateTime, deleted
+    </sql>
+
+    <select id="selectProductPage" resultType="com.invoicing.auth.entity.Product">
+        SELECT <include refid="productColumns"/>
+        FROM product_base
+        WHERE deleted = 0
+        <if test="keyword != null and keyword != ''">
+            AND (product_code LIKE CONCAT('%', #{keyword}, '%') 
+                 OR product_name LIKE CONCAT('%', #{keyword}, '%'))
+        </if>
+        ORDER BY create_time DESC
+    </select>
+
+</mapper>

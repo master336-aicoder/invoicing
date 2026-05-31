@@ -1,0 +1,16 @@
+# 采购服务配置 - purchase-service.yml
+# 命名空间：ai-dev
+# Group：dev
+# Data ID：purchase-service.yml
+
+server:
+  port: 8083
+
+spring:
+  datasource:
+    url: jdbc:mysql://192.168.1.6:13306/invoicing_purchase?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false
+
+# 日志配置
+logging:
+  level:
+    com.invoicing.purchase: DEBUG

@@ -1,0 +1,26 @@
+# 本地配置 - 仅包含Nacos连接信息
+spring:
+  application:
+    name: invoicing-gateway
+  cloud:
+    nacos:
+      server-addr: 192.168.1.20:8848
+      username: nacos
+      password: nacos
+      config:
+        namespace: ai-dev
+        group: dev
+        file-extension: yml
+        # 共享配置
+        shared-configs:
+          - data-id: common.yml
+            group: dev
+            refresh: true
+        # 服务自身配置
+        extension-configs:
+          - data-id: invoicing-gateway.yml
+            group: dev
+            refresh: true
+      discovery:
+        namespace: ai-dev
+        group: dev
